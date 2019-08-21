@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: cat
-        run: cat /home/runner/work/_temp/_github_workflow/event.json
       - name: Create PR
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -23,6 +21,7 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${GITHUB_TOKEN}" \
           | jq '.parents|length'
+          echo "$PARENTS"
           if [ "$PARENTS" == "2" ]; then echo "This is merge commit!" && exit 0; fi
           curl -X POST https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls \
           -H "Accept: application/vnd.github.v3+json" \
