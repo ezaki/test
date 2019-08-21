@@ -10,5 +10,5 @@ jobs:
     steps:
     - name: echo data
       env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
+        GITHUB_CONTEXT: ${{ toJson(strategy) }}
       run: echo "${GITHUB_CONTEXT}"
