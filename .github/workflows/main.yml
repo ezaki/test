@@ -17,7 +17,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_SHA: ${{ github.sha }}
         run: |-
-          PARENTS = curl -X GET https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits/${GITHUB_SHA} \
+          PARENTS=curl -X GET https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits/${GITHUB_SHA} \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${GITHUB_TOKEN}" \
           | jq '.parents|length'
