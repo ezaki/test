@@ -11,11 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Dump GitHub context
+      - name: Create PR
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_SHA: ${{ github.sha }}
         run: |-
-          curl -X POST https://api.github.com/repos/ezaki/test/pulls \
+          PARENTS = curl -X GET https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits/${GITHUB_SHA} \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${GITHUB_TOKEN}" \
+          | jq '.parents|length'
+          if [ "$PARENTS" == "2" ]; then echo "This is merge commit!" && exit 0; fi
+          curl -X POST https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${GITHUB_TOKEN}" \
           -d "{\"title\": \"Amazing new feature\", \"body\": \"Please pull this in!\", \"head\": \"master\", \"base\": \"develop\"}"
