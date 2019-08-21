@@ -11,4 +11,4 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_TOKEN: ${{ github.action }}
-        run: curl -X POST https://api.github.com/repos/ezaki/test/pulls -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token test' -d '{"title": "Amazing new feature", "body": "Please pull this in!", "head": "master", "base": "develop"}'
+        run: curl -X POST https://api.github.com/repos/ezaki/test/pulls -H "Accept: application/vnd.github.v3+json" -H "Authorization: token test" -d "{\"title\": \"Amazing new feature\", \"body\": \"Please pull this in!\", \"head\": \"master\", \"base\": \"develop\"}"
