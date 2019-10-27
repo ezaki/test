@@ -1,0 +1,23 @@
+{
+  "animal": [
+    {
+      "name": "ネコ",
+      "id": "cat"
+    },
+    {
+      "name": "イヌ",
+      "id": "dog"
+    },
+  ],
+  "color": {
+    "blue": {
+      "name": "青"
+    },
+    "red": {
+      "name": "赤"
+    },
+    "green": {
+      "name": "緑"
+    }
+  }
+}
