@@ -2,4 +2,3 @@
 
 test
 piyo
-fuga
